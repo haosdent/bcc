@@ -11,6 +11,9 @@ UPSTREAM_VERSION := $(shell dpkg-parsechangelog | sed -rne "s,^Version: ([0-9.]+
 %:
 	dh $@ --buildsystem=cmake --parallel --with python2,python3
 
+override_dh_builddeb:
+	dh_builddeb -- -Zgzip
+
 # tests cannot be run in parallel
 override_dh_auto_test:
 	dh_auto_test -O--buildsystem=cmake -O--no-parallel
